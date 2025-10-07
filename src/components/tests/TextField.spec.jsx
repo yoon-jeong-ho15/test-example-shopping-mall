@@ -57,3 +57,48 @@ describe('placeholder', () => {
     expect(textInput).toBeInTheDocument();
   });
 });
+
+it('텍스트를 입력하면 onChange prop으로 등록한 함수가 호출된다', async () => {
+  const spy = vi.fn();
+
+  const { user } = await render(<TextField onChange={spy} />);
+  const textInput = screen.getByPlaceholderText('텍스트를 입력해 주세요.');
+  await user.type(textInput, 'test');
+
+  expect(spy).toHaveBeenCalledWith('test');
+});
+
+it('Enter키를 입력하면 onEnter prop으로 등록한 함수가 호출된다.', async () => {
+  const spy = vi.fn();
+
+  const { user } = await render(<TextField onEnter={spy} />);
+  const textInput = screen.getByPlaceholderText('텍스트를 입력해 주세요.');
+  await user.type(textInput, 'test{Enter}');
+
+  expect(spy).toHaveBeenCalledWith('test');
+});
+
+it('focus시 onFocus prop으로 등록한 함수가 호출된다', async () => {
+  const spy = vi.fn();
+  // 포커스 활성화에는 다음과 같은 방법이 있다
+  // 탭 키로 인풋 요소로 포커스 이동
+  // 인풋 요소를 클릭
+  // textINput.focus()로 직접 발생
+
+  const { user } = await render(<TextField onFocus={spy} />);
+  const textInput = screen.getByPlaceholderText('텍스트를 입력해 주세요.');
+
+  await user.click(textInput);
+  expect(spy).toHaveBeenCalled();
+});
+
+it('focus가 활성화되면 border 스타일이 추가된다.', async () => {
+  const { user } = await render(<TextField />);
+  const textInput = screen.getByPlaceholderText('텍스트를 입력해 주세요.');
+
+  await user.click(textInput);
+  expect(textInput).toHaveStyle({
+    borderWidth: '2px',
+    borderColor: 'rgb(25, 118, 210)',
+  });
+});
