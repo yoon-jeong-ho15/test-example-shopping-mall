@@ -17,5 +17,5 @@ it('"홈으로 가기" 링크를 클릭할경우 "/"경로로 navigate함수가 
 
   await user.click(screen.getByText('홈으로 가기'));
 
-  expect(navigateFn).toHaveBeenNthCalledWith(1, '/');
+  expect(navigateFn).toHaveBeenNthCalledWith(1, '/'); // "/" 경로로 한번만 호출되는지 검증
 });
