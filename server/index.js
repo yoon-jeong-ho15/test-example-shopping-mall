@@ -6,10 +6,10 @@ import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 
-import productsJSON from './response/products.json' assert { type: 'json' };
-import categoriesJSON from './response/categories.json' assert { type: 'json' };
-import couponListJSON from './response/couponList.json' assert { type: 'json' };
-import usersJSON from './response/users.json' assert { type: 'json' };
+import productsJSON from './response/products.json' with { type: 'json' };
+import categoriesJSON from './response/categories.json' with { type: 'json' };
+import couponListJSON from './response/couponList.json' with { type: 'json' };
+import usersJSON from './response/users.json' with { type: 'json' };
 
 dotenv.config();
 
